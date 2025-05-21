@@ -36,6 +36,8 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
+dddd
+
 
 Suba os containers do projeto
 ```sh
