@@ -1,7 +1,9 @@
-import './bootstrap';
+import.meta.glob([
+  '../images/**',
+  '../fonts/**',
+]);
 
-import Alpine from 'alpinejs';
+import 'bootstrap';
+import 'admin-lte';
+import './overlayscrollbars.js'
 
-window.Alpine = Alpine;
-
-Alpine.start();
