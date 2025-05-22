@@ -161,7 +161,7 @@
                     @csrf
                     <button type="submit" class="btn btn-default btn-flat float-end">Logout</button>
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  </form>
+              
                 </li>
               </ul>
             </li>

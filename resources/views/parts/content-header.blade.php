@@ -16,8 +16,13 @@
         @endisset
       </div>
       <div class="col-sm-6 text-end">
-
-        <a href="#" class="btn btn-primary">Nova Ação</a>
+    @yield('page-action')
+        <div class="btn-group">
+          
+          <ul class="dropdown-menu dropdown-menu-end">
+            @yield('header-actions-dropdown')
+          </ul>
+        </div>
     
       </div>
     </div>
