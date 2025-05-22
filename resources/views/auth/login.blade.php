@@ -3,7 +3,7 @@
 @section('content')
     <div class="login-box">
       <div class="login-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
+        <a href="{{ route('login') }}"><b>Admin</b>LTE</a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
@@ -12,9 +12,16 @@
           <form action="{{ route('login') }}" method="post">
             @csrf
 
+@session('status')
+      <div class="alert alert-success" role="alert">
+ {{ $value }}
+      </div>
+@endsession
+
             <div class="input-group mb-3">
-              <input type="email" name=email class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+              <input type="email" name=email class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" />
+          
              @error('email')
             <div class="invalid-feedback">
              {{ $message }}
@@ -23,8 +30,9 @@
             </div>
 
             <div class="input-group mb-3">
+              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>      
               <input type="password" name=password class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}" />
-              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+       
              @error('password')
             <div class="invalid-feedback">
              {{ $message }}
@@ -39,9 +47,9 @@
 
           <div class="mt-2 text-center">
           <p class="mb-1">
-            <a href="forgot-password.html">I forgot my password</a></p>
+            <a href="{{ route('password.request') }}">I forgot my password</a></p>
           <p class="mb-0">
-            <a href="register.html" class="text-center"> Register a new membership </a>
+            <a href="{{ route('register') }}" class="text-center"> Register a new membership </a>
           </p>
           </div>
 
