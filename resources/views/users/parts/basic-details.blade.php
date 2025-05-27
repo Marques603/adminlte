@@ -1,32 +1,24 @@
-@extends('layouts.default')
-@section('page-title', 'Criar Usuário')
-@section('content')
-<form action="{{ route('users.store') }}" method="post">
+<div class="card">
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+<form action="{{ route('users.update', $user->id) }}" method="post">
+  @csrf @method('PUT')
+
+ <div class="card-header">
+    Dados Básicos
     </div>
-@endif
-
-    @csrf
-
+ <div class="card-body">
     <div class="mb-3">
     <label class="form-label">Nome</label>
     <input 
         type="text" 
         name="name" 
-        value="{{old('name')}}"
+        value="{{old('name') ?? $user->name }}"
         class="form-control @error('name') is-invalid @enderror">
-@error('name')
+    @error('name')
         <div class="invalid-feedback">
-{{ $message }}
+    {{ $message }}
         </div>
-@enderror
+    @enderror
   </div>
 
     <div class="mb-3">
@@ -34,13 +26,13 @@
     <input 
         type="text" 
         name="email" 
-        value="{{old('email')}}"
+        value="{{old('email') ?? $user->email }}"
         class="form-control @error('email') is-invalid @enderror">
-@error('email')
+    @error('email')
         <div class="invalid-feedback">
-{{ $message }}
+    {{ $message }}
         </div>
-@enderror
+    @enderror
   </div>
 
     <div class="mb-3">
@@ -49,14 +41,24 @@
         type="password" 
         name="password" 
         class="form-control @error('password') is-invalid @enderror">
-@error('password')
+    @error('password')
         <div class="invalid-feedback">
-{{ $message }}
+    {{ $message }}
         </div>
-@enderror
-  </div>
-  
-  <button type="submit" class="btn btn-primary">Criar</button>
+    @enderror
+    </div>
 
-</form>
-@endsection
+    </div>
+
+ <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Editar</button>
+    </div>
+
+    </form>
+  </div>
+
+   
+   
+  
+  
+

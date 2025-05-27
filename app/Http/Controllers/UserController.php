@@ -36,15 +36,44 @@ class UserController extends Controller
     {
         $input = $request->validate([
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6',
         ]);
 
         User::create($input);
 
         return redirect()->route('users.index')->with('status', 'Usuario adicionando com sucesso.');
     }
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+    public function update(User $user, Request $request)
+    {
+        $input = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email', 
+            'password' => 'exclude_if:password,null|min:6',
+        ]);
+        $user->fill($input);
+        $user->save();
 
-    
+        return redirect()
+        ->route('users.index')
+        ->with('status', 'Usuario editado com sucesso.');
+    }
+    public function updateProfile(User $user, Request $request)
+    {
+        $input = $request->validate([
+            'type' => 'required',
+            'address' => 'nullable', 
+        ]);
+    }
+    public function destroy(User $user)
+    {
+               
 
+                $user->delete();
+                return redirect()->route('users.index')->with('status', 'Usuario removido com sucesso.');
+    }
 }
