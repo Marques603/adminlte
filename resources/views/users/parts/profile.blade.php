@@ -1,6 +1,6 @@
 <div class="card">
 
-<form action="{{ route('users.update', $user->id) }}" method="post">
+<form action="{{ route('users.updateProfile', $user->id) }}" method="post">
   @csrf @method('PUT')
 
  <div class="card-header">
@@ -24,7 +24,7 @@
  </div>
 
     <div class="mb-3">
-    <label class="form-label"><Em>Endereço</Em></label>
+    <label class="form-label">Endereço</label>
     <input 
         type="text" 
         name="address" 

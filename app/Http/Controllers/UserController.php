@@ -64,16 +64,24 @@ class UserController extends Controller
     }
     public function updateProfile(User $user, Request $request)
     {
+
         $input = $request->validate([
             'type' => 'required',
             'address' => 'nullable', 
         ]);
+
+        UserProfile::updateOrCreate(
+            ['user_id' => $user->id],
+            $input);
+         return back()
+         ->with('status', 'Perfil editado com sucesso.');
+
     }
     public function destroy(User $user)
     {
                
 
                 $user->delete();
-                return redirect()->route('users.index')->with('status', 'Usuario removido com sucesso.');
+                return back()->route('users.index')->with('status', 'Usuario removido com sucesso.');
     }
 }
