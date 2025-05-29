@@ -36,52 +36,105 @@ class UserController extends Controller
     {
         $input = $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:6',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
         ]);
 
         User::create($input);
 
         return redirect()->route('users.index')->with('status', 'Usuario adicionando com sucesso.');
     }
+
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+           
+            $user->load('profile', 'interests');
+            $roles = Role::all();
+            return view('users.edit', compact('user', 'roles'));
     }
-    public function update(User $user, Request $request)
+    public function update(Request $request, User $user)
     {
-        $input = $request->validate([
+            
+            $input = $request->validate([
             'name' => 'required',
-            'email' => 'required|email', 
-            'password' => 'exclude_if:password,null|min:6',
+            'email' => 'required|email',
+            'password' => 'exclude_if:password,null|min:8',
         ]);
-        $user->fill($input);
-        $user->save();
 
-        return redirect()
-        ->route('users.index')
-        ->with('status', 'Usuario editado com sucesso.');
+        $user->update($input);
+
+        return redirect()->route('users.index')->with('status', 'Usuario atualizado com sucesso.');
     }
-    public function updateProfile(User $user, Request $request)
+    public function updateRoles(Request $request, User $user)
     {
+            
 
-        $input = $request->validate([
-            'type' => 'required',
-            'address' => 'nullable', 
+            $input = $request->validate([
+            'roles' => 'required|array',
         ]);
 
-        UserProfile::updateOrCreate(
-            ['user_id' => $user->id],
-            $input);
-         return back()
-         ->with('status', 'Perfil editado com sucesso.');
+        $user->roles()->sync($input['roles']);
 
+        return redirect()->route('users.index')->with('status', 'Funções atualizadas com sucesso.');
+    }
+
+
+    public function updateProfile(Request $request, User $user)
+    {
+            
+
+            $input = $request->validate([
+            'type' => 'required',
+            'address' => 'nullable',
+      
+        ]);
+
+            UserProfile::updateOrCreate(
+            ['user_id' => $user->id],
+            
+        $input); 
+
+
+        return redirect()->route('users.index')->with('status', 'Perfil atualizado com sucesso.');
+    }
+    public function updateInterests(Request $request, User $user)
+    {
+             
+
+            $input = $request->validate([
+            'interests' => 'nullable|array',
+    ]);
+
+    $user->interests()->delete();
+
+ 
+    if (!empty($input['interests'])) {
+
+        $interests = array_map(function($interest) use ($user) {
+            return [
+                'user_id' => $user->id,
+                'interest' => $interest
+            ];
+        }, $input['interests']);
+
+        $user->interests()->createMany($interests);
+    }
+
+    return redirect()->route('users.index')->with('status', 'Interesses atualizados com sucesso.');
+    }
+
+    public function updateRoles(User $user, Request $request)
+    {
+        $input = $request->validate([
+            'roles' => 'required|array',
+        ]);
     }
     public function destroy(User $user)
     {
-               
+                 
 
                 $user->delete();
-                return back()->route('users.index')->with('status', 'Usuario removido com sucesso.');
+                return redirect()->route('users.index')->with('status', 'Usuario removido com sucesso.');
     }
+
 }
