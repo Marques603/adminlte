@@ -1,38 +1,31 @@
 <div class="card">
-    <form action="{{ route('users.updateRoles', $user->id) }}" method="post">
-  @csrf @method('PUT')
-
     <div class="card-header">
         <h3>Cargos</h3>
     </div>
-   
-    
     <div class="card-body">
+        <form action="{{ route('users.updateRoles', $user->id) }}" method="POST">
+            @csrf
+            @method('PUT')
             @foreach($roles as $role)
             <div class="form-check">
                 <input 
                     class="form-check-input @error('roles') is-invalid @enderror" 
                     type="checkbox"
                     value="{{ $role->id }}" 
-                    name="roles[]">
-                   
-                     
+                    name="roles[]"
+                    @if($user->roles && $user->roles->contains($role->id)) checked @endif>
                 <label class="form-check-label">
-                    {{ $role->name }}   
-                    </label>
-
-                    @if($loop->last)
-                    @error('roles')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    @endif
-
-                
+                    {{ $role->name }}
+                </label>
             </div>
             @endforeach
+            @error('roles')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
             <br>
-            <div class="card-footer">
+            <div class="card-footer text">
                 <button type="submit" class="btn btn-primary">Editar</button>
             </div>
+        </form>
     </div>
 </div>

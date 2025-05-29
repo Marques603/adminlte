@@ -48,13 +48,15 @@ class UserController extends Controller
     public function edit(User $user)
     {
            
+
             $user->load('profile', 'interests');
-            $roles = Role::all();
-            return view('users.edit', compact('user', 'roles'));
+            $roles= role ::all();
+            return view('users.edit', compact('user','roles'));
     }
     public function update(Request $request, User $user)
     {
-            
+           
+
             $input = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -67,7 +69,7 @@ class UserController extends Controller
     }
     public function updateRoles(Request $request, User $user)
     {
-            
+           
 
             $input = $request->validate([
             'roles' => 'required|array',
@@ -81,7 +83,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request, User $user)
     {
-            
+           
 
             $input = $request->validate([
             'type' => 'required',
@@ -99,7 +101,7 @@ class UserController extends Controller
     }
     public function updateInterests(Request $request, User $user)
     {
-             
+               
 
             $input = $request->validate([
             'interests' => 'nullable|array',
@@ -123,15 +125,9 @@ class UserController extends Controller
     return redirect()->route('users.index')->with('status', 'Interesses atualizados com sucesso.');
     }
 
-    public function updateRoles(User $user, Request $request)
-    {
-        $input = $request->validate([
-            'roles' => 'required|array',
-        ]);
-    }
     public function destroy(User $user)
     {
-                 
+                Gate::authorize('destroy', $user::class);  
 
                 $user->delete();
                 return redirect()->route('users.index')->with('status', 'Usuario removido com sucesso.');

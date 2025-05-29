@@ -8,7 +8,7 @@
         <form action="{{ route('users.updateInterests', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
-            @foreach(['Admin', 'View'] as $interest)
+            @foreach(['PHP', 'JavaScript', 'Python', 'Ruby'] as $interest)
             <div class="form-check">
                 <input 
                     class="form-check-input @error('interests') is-invalid @enderror" 
