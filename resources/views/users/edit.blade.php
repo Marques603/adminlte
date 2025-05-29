@@ -6,11 +6,12 @@
         {{ $value}}
 </div>
 @endsession
-@include('users.parts.roles')
-<br>
-@include('users.parts.interests')
-<br>
 @include('users.parts.basic-details')
 <br>
 @include('users.parts.profile')
+<br>
+@include('users.parts.interests')
+<br>
+@include('users.parts.roles')
+
 @endsection
