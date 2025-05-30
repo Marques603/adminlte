@@ -24,6 +24,13 @@
                   <p>Usuários</p>
                 </a>
               </li>
+
+                 <li class="nav-item">
+                <a href="{{ route('sectors.index') }}" class="nav-link">
+                  <i class="nav-icon bi bi-person"></i>
+                  <p>Setor</p>
+                </a>
+              </li>
  
               <li class="nav-header">LABELS</li>
 

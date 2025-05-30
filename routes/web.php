@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,7 +8,6 @@ Route::get('/', function () {
 
     
     Route::middleware(['auth'])->group(function(){
-    
     
     Route::get('/users', [UserController::class, 'index'])->name('users.index');  
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');   
@@ -22,4 +20,6 @@ Route::get('/', function () {
     Route::put('/users/{user}/roles', [UserController::class, 'updateRoles'])->name('users.updateRoles');
 
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
 });

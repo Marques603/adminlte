@@ -144,7 +144,7 @@ $breadcrumbs = [
                 <!-- DIRECT CHAT -->
                 <div class="card direct-chat direct-chat-primary mb-4">
                   <div class="card-header">
-                    <h3 class="card-title">Direct Chat</h3>
+                    <h3 class="card-title">Chat interno</h3>
                     <div class="card-tools">
                       <span title="3 New Messages" class="badge text-bg-primary"> 3 </span>
                       <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
